@@ -1,7 +1,7 @@
 import axios from "axios";
-import { AccountData } from "./types";
+import { IAccountData } from "./types";
 
-export async function getMyDetails(): Promise<AccountData | undefined>
+export async function getMyDetails(): Promise<IAccountData | undefined>
 {
 
   //for not I'll use my own MY_TOKEN var
@@ -21,7 +21,7 @@ export async function getMyDetails(): Promise<AccountData | undefined>
     {
       throw new Error(`API request failed with status ${response.status}`)
     }
-    return response.data.data as AccountData;
+    return response.data.data as IAccountData;
   }
   catch(err)
   {

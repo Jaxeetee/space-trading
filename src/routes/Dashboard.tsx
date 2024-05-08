@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { AccountData } from '../interface/types';
 import { getMyDetails } from '../spacetraders-api/my/account-details';
+import { IAccountData } from '../spacetraders-api/my/types';
 
 function Dashboard() {
-  const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
+  const [agentDetails, setAgentDetails] = useState<IAccountData | undefined>(undefined);
 
   useEffect(() => {
 
