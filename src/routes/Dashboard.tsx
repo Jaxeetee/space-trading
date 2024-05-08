@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { getDetails } from '../spacetraders-api/spaceTrader';
-import { AccountData } from '../interface/interfaces';
+import { AccountData } from '../interface/types';
+import { getMyDetails } from '../spacetraders-api/my/account-details';
 
 function Dashboard() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
@@ -9,7 +9,7 @@ function Dashboard() {
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await getDetails();
+      const result = await getMyDetails();
       setAgentDetails(result);
     };
     
@@ -20,7 +20,7 @@ function Dashboard() {
       <main>
         <div className='w-full items-center'>
           {agentDetails ? 
-            <div className='text-center'> {agentDetails.symbol} {agentDetails.startingFaction}</div> 
+            <div className='text-center'>{agentDetails.symbol} {agentDetails.startingFaction}</div> 
             : <div> has no data</div>}
         </div>
       </main>

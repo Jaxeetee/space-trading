@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import './App.css';
 import { getDetails } from './spacetraders-api/spaceTrader';
-import { AccountData } from './interface/interfaces';
+import { AccountData } from './interface/types';
 
 function App() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
