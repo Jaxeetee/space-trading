@@ -16,7 +16,7 @@ function Dashboard() {
     fetchData();   
   }, [])
   return (
-    <div>
+    <div className='w-screen h-screen bg-slate-500'>
       <main>
         <div className='w-full items-center'>
           {agentDetails ? 
