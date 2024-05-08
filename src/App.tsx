@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import './App.css';
-import { getDetails } from './spacetraders-api/spaceTrader';
+
 import { AccountData } from './interface/types';
+import { getMyDetails } from './spacetraders-api/my/account-details';
 
 function App() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
@@ -10,7 +11,7 @@ function App() {
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await getDetails();
+      const result = await getMyDetails();
       setAgentDetails(result);
     };
     
