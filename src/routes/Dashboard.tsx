@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import './App.css';
-import { getDetails } from './spacetraders-api/spaceTrader';
-import { AccountData } from './interface/interfaces';
+import { getDetails } from '../spacetraders-api/spaceTrader';
+import { AccountData } from '../interface/interfaces';
 
-function App() {
+function Dashboard() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
 
   useEffect(() => {
@@ -17,11 +16,11 @@ function App() {
     fetchData();   
   }, [])
   return (
-    <div className="App">
+    <div>
       <main>
-        <div>
+        <div className='w-full items-center'>
           {agentDetails ? 
-            <div> {agentDetails.symbol} {agentDetails.startingFaction}</div> 
+            <div className='text-center'> {agentDetails.symbol} {agentDetails.startingFaction}</div> 
             : <div> has no data</div>}
         </div>
       </main>
@@ -29,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

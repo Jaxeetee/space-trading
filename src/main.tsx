@@ -4,12 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Login from './routes/Login';
+import Error from './routes/Error';
+import Dashboard from './routes/Dashboard';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+    errorElement: <Error />
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    errorElement: <Error />
+  }
+])
+
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
