@@ -1,6 +1,6 @@
 export const MY_TOKEN: string = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiU1A0Q0VfTk9NQUQiLCJ2ZXJzaW9uIjoidjIuMi4wIiwicmVzZXRfZGF0ZSI6IjIwMjQtMDUtMTkiLCJpYXQiOjE3MTY0MzgwODMsInN1YiI6ImFnZW50LXRva2VuIn0.QOCDAd92cuzUXHhmMGW5YF8M5kO5_ZNDRGZdkz8UVai4jjIYu9hUW2WX6pVry9XEADScjyuMCZetjXuaSI_4urOUKSrJaZwu9quHf5_F0iJ79UAUyyoRi8Ol52EQz-6IbeLGVHcEH9r_y77RihQi-NEIu7f9MzMQ0__xKlHr0ceDe0cqFuRNGoGbU_5cIvXTxSWOnq3E8kKJkUSfsIVfVr9UnBcN4YiNkZ02FZZc1JYZErLwNtgJdzy_4YR5-TRNNMShI8v_X21iqlfd0UTEOMEtxpfNogrns-sjeDNCSD96j3XXvvGVlpFVpowNLYbl74RMiIAoLN8GOcsn91aDfw";
 
-export type AccountData = {
+export interface AccountData {
   accountID: string;
   credits: number;
   headquarters: string;
@@ -10,7 +10,7 @@ export type AccountData = {
 } 
 
 
-export type Account = {
+export interface Account {
   token: string;
   agent: Agent;
   contract: Contract;
@@ -18,9 +18,7 @@ export type Account = {
   shop: Ship;
 }
 
-
-
-export type Agent = {
+export interface Agent {
   accountID: string;
   symbol: string;
   headquarters: string;
@@ -29,24 +27,24 @@ export type Agent = {
   shipCount: number;
 }
 
-export type Terms = {
+export interface Terms {
   deadline: string;
   payment: Payment;
 }
 
-export type Payment = {
+export interface Payment {
   onAccepted: number;
   onFulfilled: number;
 }
 
-export type Deliverables = {
+export interface Deliverables {
   tradeSymbol: string;
   destinationSymbol: string;
   unitsRequired: number;
   unitsFulfilled: number;
 }
 
-export type Contract = {
+export interface Contract {
   id: string;
   factionSymbol: string;
   type: string;
@@ -58,13 +56,13 @@ export type Contract = {
   deadlineToAccept: string;
 }
 
-export type Trait = {
+export interface Trait {
   symbol: string;
   name: string;
   description: string;
 }
 
-export type Faction = {
+export interface Faction {
   symbol: string;
   name: string;
   description: string;
@@ -73,7 +71,7 @@ export type Faction = {
   isRecruiting: boolean;
 }
 
-export type Spot = {
+export interface Spot {
   symbol: string;
   type: string;
   systemSymbol: string;
@@ -81,14 +79,14 @@ export type Spot = {
   y: number;
 }
 
-export type Route = {
+export interface Route {
   origin: Spot;
   destination: Spot;
   arrival: string;
   departureTime: string;
 }
 
-export type Nav = {
+export interface Nav {
   systemSymbol: string;
   waypointSymbol: string;
   route: Route;
@@ -96,7 +94,7 @@ export type Nav = {
   flightMode: string;
 }
 
-export type Crew = {
+export interface Crew {
   current: number;
   capacity: number;
   required: number;
@@ -105,30 +103,30 @@ export type Crew = {
   wages: number;
 }
 
-export type Consumed = {
+export interface Consumed {
   amount: number;
   timestamp: string;
 }
 
-export type Fuel = {
+export interface Fuel {
   current: number;
   capacity: number;
   consumed: Consumed;
 }
 
-export type Cooldown = {
+export interface Cooldown {
   shipSymbol: string;
   totalSeconds: number;
   remainingSeconds: number;
 }
 
-export type Requirements = {
-  power: number | undefined;
-  slots: number | undefined;
+export interface Requirements {
+  power?: number | undefined;
+  slots?: number | undefined;
   crew: number;
 }
 
-export type Frame = {
+export interface Frame {
   symbol: string;
   name: string;
   description: string;
@@ -140,7 +138,7 @@ export type Frame = {
   requirements: Requirements;
 }
 
-export type Reactor = {
+export interface Reactor {
   symbol: string;
   name: string;
   description: string;
@@ -150,7 +148,7 @@ export type Reactor = {
   requirements: Requirements
 }
 
-export type Engine = {
+export interface Engine {
   symbol: string;
   name: string;
   description: string;
@@ -160,7 +158,7 @@ export type Engine = {
   requirements: Requirements;
 }
 
-export type Module = {
+export interface Module {
   symbol: string;
   name: string;
   description: string;
@@ -168,7 +166,7 @@ export type Module = {
   requirements: Requirements;
 }
 
-export type Mount = {
+export interface Mount {
   symbol: string;
   name: string;
   description: string;
@@ -176,19 +174,19 @@ export type Mount = {
   requirements: Requirements;
 }
 
-export type Registration = {
+export interface Registration {
   name: string;
   factionSymbol: string;
   role: string;
 }
 
-export type Cargo = {
+export interface Cargo {
   capacity: number;
   units: number;
   inventory: any;
 }
 
-export type Ship = {
+export interface Ship {
   symbol: string;
   nav: Nav;
   crew: Crew;
