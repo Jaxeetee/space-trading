@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 
 import { getMyDetails } from '../spacetraders-api/my/account-details';
-import { IAccountData } from '../spacetraders-api/my/types';
+import { AccountData } from '../spacetraders-api/my/types';
+import { MY_TOKEN } from '../spacetraders-api/my/types';
 
 function Dashboard() {
-  const [agentDetails, setAgentDetails] = useState<IAccountData | undefined>(undefined);
+  const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
 
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await getMyDetails();
+      // will hardcode my token for now
+      const result = await getMyDetails(MY_TOKEN); 
       setAgentDetails(result);
     };
     

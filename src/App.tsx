@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import { AccountData } from './interface/types';
+import { MY_TOKEN } from './spacetraders-api/my/types';
 import { getMyDetails } from './spacetraders-api/my/account-details';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await getMyDetails();
+      const result = await getMyDetails(MY_TOKEN);
       setAgentDetails(result);
     };
     
