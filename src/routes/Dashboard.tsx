@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getMyDetails } from '../spacetraders-api/my/account-details';
+import { getDetails } from '../spacetraders-api/my/account-details';
 import { AccountData } from '../spacetraders-api/my/types';
 import { MY_TOKEN } from '../spacetraders-api/my/types';
 
@@ -11,7 +11,7 @@ function Dashboard() {
 
     const fetchData = async () => {
       // will hardcode my token for now
-      const result = await getMyDetails(MY_TOKEN); 
+      const result = await getDetails(MY_TOKEN); 
       setAgentDetails(result);
     };
     

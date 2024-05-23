@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AccountData } from "./types";
 
-export async function getMyDetails(token: string): Promise<AccountData | undefined>
+export async function getDetails(token: string): Promise<AccountData | undefined>
 {
   const options = {
     headers: {

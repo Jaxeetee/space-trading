@@ -3,7 +3,7 @@ import './App.css';
 
 import { AccountData } from './interface/types';
 import { MY_TOKEN } from './spacetraders-api/my/types';
-import { getMyDetails } from './spacetraders-api/my/account-details';
+import { getDetails } from './spacetraders-api/my/account-details';
 
 function App() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
 
     const fetchData = async () => {
-      const result = await getMyDetails(MY_TOKEN);
+      const result = await getDetails(MY_TOKEN);
       setAgentDetails(result);
     };
     

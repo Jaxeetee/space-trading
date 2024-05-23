@@ -3,20 +3,36 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import React, { useState } from 'react'
 
+import { generateToken, doesAccountExists } from '@/spacetraders-api/my/login-credentials'
+
 const Login = () => {
-  const [tokenInput, setTokenInput] = useState<string>();
+  const [tokenInput, setTokenInput] = useState<string>("");
+  const [newCallsign, setNewCallsign] = useState<string>("");
 
 
-  const submit = (e: any) => {
-    console.log(e);
+  const submit = async (e: any) =>  {
+    console.log(tokenInput);
+    // verify first if such token exists
+    if (await !doesAccountExists(tokenInput)){
+      //warn user that there's no 
+      console.log('no user found');
+    }
+
+    // then proceed to navigate to a different page
   }
 
-  const getNewToken = () => {
-
+  const getNewToken = async () => {
+    await generateToken(newCallsign);
   }
 
-  const onUpdateInput = (e: any) => {
+
+
+  const onUpdateTokenInput = (e: any) =>  {
     setTokenInput(e.target.value);
+  }
+
+  const onUpdateCallsignInput = (e: any) =>  {
+    setNewCallsign(e.target.value);
   }
 
   return (
@@ -26,7 +42,7 @@ const Login = () => {
           <CardTitle>Login using your token</CardTitle>
         </CardHeader>
         <CardContent className='m-5'>
-          <Input placeholder='insert token here' className='rounded-[5px]' onChange={onUpdateInput} />
+          <Input placeholder='insert token here' className='rounded-[5px]' onChange={onUpdateTokenInput} />
           <Button className='m-4 bg-slate-950 rounded-xl' type="submit" onClick={submit}>Login</Button>
         </CardContent>
       </Card>
@@ -35,6 +51,7 @@ const Login = () => {
           <CardTitle>Create new Token</CardTitle>
         </CardHeader>
         <CardContent className='m-5'>
+          <Input placeholder='insert new Callsign' className='rounded-[5px]' onChange={onUpdateCallsignInput} />
           <Button className='m-4 bg-slate-950 rounded-xl' type="submit" onClick={getNewToken}>Generate new token</Button>
         </CardContent>
       </Card>
