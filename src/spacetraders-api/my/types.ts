@@ -7,15 +7,14 @@ export interface AccountData {
   shipCount: number;
   startingFaction: string;
   symbol: string;
-} 
-
+}
 
 export interface Account {
   token: string;
   agent: Agent;
   contract: Contract;
   faction: Faction;
-  shop: Ship;
+  ship: Ship;
 }
 
 export interface Agent {

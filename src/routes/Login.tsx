@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import React, { useState } from 'react'
 
-import { generateToken, doesAccountExists } from '@/spacetraders-api/my/login-credentials'
+import { generateToken } from '@/spacetraders-api/my/register'
 
 const Login = () => {
   const [tokenInput, setTokenInput] = useState<string>("");
@@ -12,20 +12,12 @@ const Login = () => {
 
   const submit = async (e: any) =>  {
     console.log(tokenInput);
-    // verify first if such token exists
-    if (await !doesAccountExists(tokenInput)){
-      //warn user that there's no 
-      console.log('no user found');
-    }
-
-    // then proceed to navigate to a different page
   }
 
-  const getNewToken = async () => {
-    await generateToken(newCallsign);
+  const getNewToken = () =>  {
+    generateToken(newCallsign).then(res =>  console.log(res));
+
   }
-
-
 
   const onUpdateTokenInput = (e: any) =>  {
     setTokenInput(e.target.value);
