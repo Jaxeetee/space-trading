@@ -15,7 +15,8 @@ const Login = () => {
   }
 
   const getNewToken = () =>  {
-    generateToken(newCallsign).then(res =>  console.log(res));
+    generateToken(newCallsign)
+      .then(res =>  console.log(res));
 
   }
 

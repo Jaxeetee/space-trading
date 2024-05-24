@@ -9,8 +9,7 @@ function Dashboard() {
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      // will hardcode my token for now
+    const fetchData = async () =>  {
       const result = await getDetails(MY_TOKEN); 
       setAgentDetails(result);
     };
