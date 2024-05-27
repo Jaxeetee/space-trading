@@ -1,23 +1,41 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 import { generateToken } from '@/spacetraders-api/my/register'
+import { TOKEN } from '@/lib/constants';
+import { getAgent } from '@/spacetraders-api/my/agent';
 
 const Login = () => {
   const [tokenInput, setTokenInput] = useState<string>("");
   const [newCallsign, setNewCallsign] = useState<string>("");
+  const navigate = useNavigate();
 
+  function navigateToDashboard()
+  {
+    navigate('/dashboard')
+  }
 
-  const submit = async (e: any) =>  {
+  const submit = async () =>  {
     console.log(tokenInput);
+
+    // validate if such token exists
+    getAgent(tokenInput);
+
+    // then save it 
+    localStorage.setItem(TOKEN, tokenInput);
+
+    // navigateToDashboard();
   }
 
   const getNewToken = () =>  {
     generateToken(newCallsign)
-      .then(res =>  console.log(res));
+      .then(res =>  localStorage.setItem(TOKEN, res));
 
+    navigateToDashboard();
   }
 
   const onUpdateTokenInput = (e: any) =>  {

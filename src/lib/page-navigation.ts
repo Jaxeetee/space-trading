@@ -1,4 +1,0 @@
-export function navigateToDashboard()
-{
-    navi
-}

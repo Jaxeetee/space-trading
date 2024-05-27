@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getDetails } from '../spacetraders-api/my/account-details';
+import { getAgent } from '../spacetraders-api/my/agent';
 import { AccountData } from '../spacetraders-api/my/types';
 import { MY_TOKEN } from '../spacetraders-api/my/types';
 
@@ -10,7 +10,7 @@ function Dashboard() {
   useEffect(() => {
 
     const fetchData = async () =>  {
-      const result = await getDetails(MY_TOKEN); 
+      const result = await getAgent(MY_TOKEN); 
       setAgentDetails(result);
     };
     
