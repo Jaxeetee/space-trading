@@ -18,7 +18,6 @@ export async function generateToken(callsign: string): Promise<any>
 
   try{
     const response = await API.post('/register', data, { headers })
-
     console.log(response);
 
     if (response.status == 409)

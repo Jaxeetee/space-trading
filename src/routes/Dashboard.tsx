@@ -3,21 +3,22 @@ import { useEffect, useState } from 'react';
 import { getAgent } from '../spacetraders-api/my/agent';
 import { AccountData } from '../spacetraders-api/my/types';
 import { MY_TOKEN } from '../spacetraders-api/my/types';
+import { TOKEN } from '@/lib/constants';
 
 function Dashboard() {
   const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
+  const accountToken = localStorage.getItem(TOKEN)?.toString();
 
   useEffect(() => {
-
     const fetchData = async () =>  {
-      const result = await getAgent(MY_TOKEN); 
-      setAgentDetails(result);
+      const response = await getAgent(accountToken); 
+      setAgentDetails(response);
     };
     
     fetchData();   
   }, [])
   return (
-    <div className='w-screen h-screen bg-slate-500'>
+    <div className='w-screen h-screen bg-'>
       <main>
         <div className='w-full items-center'>
           {agentDetails ? 

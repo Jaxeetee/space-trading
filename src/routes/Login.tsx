@@ -20,22 +20,31 @@ const Login = () => {
   }
 
   const submit = async () =>  {
-    console.log(tokenInput);
-
+    
     // validate if such token exists
-    getAgent(tokenInput);
+    await getAgent(tokenInput)
+    .then((res) =>  
+      {
+        if (res.data)
+        {
+          console.log(tokenInput);
+          localStorage.setItem(TOKEN, tokenInput);
+          navigateToDashboard();
+        }
+
+      })
+      .catch(err =>  err.data.code);
 
     // then save it 
-    localStorage.setItem(TOKEN, tokenInput);
-
-    // navigateToDashboard();
   }
 
   const getNewToken = () =>  {
     generateToken(newCallsign)
-      .then(res =>  localStorage.setItem(TOKEN, res));
-
-    navigateToDashboard();
+      .then(res =>  
+        {
+          localStorage.setItem(TOKEN, res)
+          navigateToDashboard();
+        });
   }
 
   const onUpdateTokenInput = (e: any) =>  {
