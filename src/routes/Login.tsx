@@ -12,6 +12,7 @@ import { getAgent } from '@/spacetraders-api/my/agent';
 const Login = () => {
   const [tokenInput, setTokenInput] = useState<string>("");
   const [newCallsign, setNewCallsign] = useState<string>("");
+  const [tokenValid, setTokenValid] = useState<string>("");
   const navigate = useNavigate();
 
   function navigateToDashboard()
@@ -20,22 +21,17 @@ const Login = () => {
   }
 
   const submit = async () =>  {
-    
-    // validate if such token exists
-    await getAgent(tokenInput)
-    .then((res) =>  
-      {
-        if (res.data)
-        {
-          console.log(tokenInput);
-          localStorage.setItem(TOKEN, tokenInput);
-          navigateToDashboard();
-        }
+    const agent = await getAgent(tokenInput);
 
-      })
-      .catch(err =>  err.data.code);
-
-    // then save it 
+    if (agent === undefined)
+    {
+      //error prompt
+      console.log("error")
+      setTokenValid("")
+    } else {
+      localStorage.setItem(TOKEN, tokenInput);
+      navigateToDashboard();
+    }     
   }
 
   const getNewToken = () =>  {

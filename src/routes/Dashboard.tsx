@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 
 import { getAgent } from '../spacetraders-api/my/agent';
 import { AccountData } from '../spacetraders-api/my/types';
-import { MY_TOKEN } from '../spacetraders-api/my/types';
 import { TOKEN } from '@/lib/constants';
 
 function Dashboard() {
-  const [agentDetails, setAgentDetails] = useState<AccountData | undefined>(undefined);
+  const [agentDetails, setAgentDetails] = useState<AccountData | undefined>();
   const accountToken = localStorage.getItem(TOKEN)?.toString();
 
   useEffect(() => {
