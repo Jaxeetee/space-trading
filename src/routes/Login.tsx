@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
-import { generateToken } from '@/spacetraders-api/my/register'
 import { TOKEN } from '@/lib/constants';
+import { generateToken } from '@/spacetraders-api/my/register'
 import { getAgent } from '@/spacetraders-api/my/agent';
 
 const LoginCard = (props: any) => {
@@ -43,6 +43,7 @@ const NewAccountCard = (props: any) => {
         <CardTitle className='text-left pt-4 text-2xl'>New Account</CardTitle>
       </CardHeader>
       <CardContent className='m-4'>
+        <p className='ml-1 text-red-500 text-left text-[.75rem]'>{props.validityPrompt}</p>
         <Input placeholder='Enter a new Callsign' onChange={props.onUpdateCallsignInput}  className='rounded-[5px]' />
       </CardContent>
       <CardFooter className='absolute w-full bottom-6'>
@@ -66,9 +67,9 @@ const Login = () => {
   }
 
   const submit = async () =>  {
-    const agent = await getAgent(tokenInput);
+    const result = await getAgent(tokenInput);
 
-    if (agent === undefined)
+    if (result === undefined)
     {
       //error prompt
       console.log("error")
@@ -79,13 +80,27 @@ const Login = () => {
     }     
   }
 
-  const getNewToken = () =>  {
-    generateToken(newCallsign)
-      .then(res =>  
-        {
-          localStorage.setItem(TOKEN, res)
-          navigateToDashboard();
-        });
+  const getNewToken = async () =>  {
+    const result = await generateToken(newCallsign);
+
+    console.log(result);
+
+    if (result === undefined)
+    {
+      setValidityPrompt("Callsign already exists!");
+    }
+    else 
+    {
+      localStorage.setItem(TOKEN, result)
+      navigateToDashboard();
+    }
+
+    // generateToken(newCallsign)
+    //   .then(res =>  
+    //     {
+    //       localStorage.setItem(TOKEN, res)
+    //       navigateToDashboard();
+    //     });
   }
 
   const switchToNewAccount = (state: boolean) =>  {
@@ -110,6 +125,7 @@ const Login = () => {
             onUpdateCallsignInput={onUpdateCallsignInput}
             cancel={switchToNewAccount} 
             getNewToken={getNewToken}
+            validityPrompt={validityPrompt}
           />
         :
           <LoginCard 
