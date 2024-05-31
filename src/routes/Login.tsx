@@ -83,8 +83,6 @@ const Login = () => {
   const getNewToken = async () =>  {
     const result = await generateToken(newCallsign);
 
-    console.log(result);
-
     if (result === undefined)
     {
       setValidityPrompt("Callsign already exists!");
@@ -94,13 +92,6 @@ const Login = () => {
       localStorage.setItem(TOKEN, result)
       navigateToDashboard();
     }
-
-    // generateToken(newCallsign)
-    //   .then(res =>  
-    //     {
-    //       localStorage.setItem(TOKEN, res)
-    //       navigateToDashboard();
-    //     });
   }
 
   const switchToNewAccount = (state: boolean) =>  {

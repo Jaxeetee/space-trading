@@ -1,8 +1,12 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import API from "../api";
 import { AccountData, MY_TOKEN } from "./types";
 import { error } from "console";
 
+type errorType = {
+  message: string,
+  code: number
+}
  
 export async function generateToken(callsign: string): Promise<string | undefined>
 {
@@ -18,11 +22,16 @@ export async function generateToken(callsign: string): Promise<string | undefine
 
   try {
     const response = await API.post('/register', data, { headers })
-    console.log(response);
 
     return response.data.data.token;
   } 
-  catch (error) {
+  catch (error: any) {
+    console.error(error);
+
+    const errorType = {
+      message: error.response.data.error.message,
+      code: error.response.data.error.code
+    };
     
     return undefined;
   }
