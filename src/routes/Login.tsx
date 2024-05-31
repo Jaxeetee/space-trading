@@ -2,17 +2,62 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 import { generateToken } from '@/spacetraders-api/my/register'
 import { TOKEN } from '@/lib/constants';
 import { getAgent } from '@/spacetraders-api/my/agent';
 
+const LoginCard = (props: any) => {
+  const newAccount = () =>  {
+    props.setNewAccount(true);
+  }
+
+  return (
+    <Card className='relative size-96'>
+      <CardHeader className='my-4'>
+      <CardTitle className='text-left mt-4 text-2xl'>Sign In</CardTitle>
+      </CardHeader>
+      <CardContent className=' m-4'>
+        <p className='ml-1 text-red-500 text-left text-[.75rem]'>{props.validityPrompt}</p>
+        <Input placeholder='Enter your Token' onChange={props.onUpdateTokenInput}  className='rounded-[5px] my-1' />
+        <p className='ml-1 text-left font-light text-[.75rem]'> Dont have one?
+          <a onClick={newAccount} className='hover:text-amber-100 text-[.75rem] hover:cursor-pointer font-mono'> Create a new account</a>
+        </p>
+      </CardContent>
+      <CardFooter className='absolute bottom-6 w-full'>
+        <Button className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-black hover:ring-inset bg-offwhite text-black rounded-[5px]' type="submit" onClick={props.submit}>Sign in</Button>
+      </CardFooter>
+    </Card>
+  )
+}
+
+const NewAccountCard = (props: any) => {
+  const cancel = () =>  {
+    props.cancel(false);
+  }
+  return (
+    <Card className='relative size-96'>
+      <CardHeader className='my-4 justify-'>
+        <CardTitle className='text-left pt-4 text-2xl'>New Account</CardTitle>
+      </CardHeader>
+      <CardContent className='m-4'>
+        <Input placeholder='Enter a new Callsign' onChange={props.onUpdateCallsignInput}  className='rounded-[5px]' />
+      </CardContent>
+      <CardFooter className='absolute w-full bottom-6'>
+        <Button type="submit" onClick={cancel}  className='flex w-full hover:bg-offwhite hover:ring-2 hover:ring-black hover:ring-inset bg-gray-950 hover:text-black text-offwhite rounded-[5px]' >Cancel</Button>
+        <Button type="submit" onClick={props.getNewToken} className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-black hover:ring-inset bg-offwhite text-black rounded-[5px]' >Create</Button>
+      </CardFooter>
+    </Card>
+  )
+}
+
 const Login = () => {
   const [tokenInput, setTokenInput] = useState<string>("");
   const [newCallsign, setNewCallsign] = useState<string>("");
-  const [tokenValid, setTokenValid] = useState<string>("");
+  const [validityPrompt, setValidityPrompt] = useState<string>("");
+  const [newAccount, setNewAccount] = useState<boolean>(false);
   const navigate = useNavigate();
 
   function navigateToDashboard()
@@ -27,7 +72,7 @@ const Login = () => {
     {
       //error prompt
       console.log("error")
-      setTokenValid("")
+      setValidityPrompt("Invalid Token!")
     } else {
       localStorage.setItem(TOKEN, tokenInput);
       navigateToDashboard();
@@ -43,6 +88,11 @@ const Login = () => {
         });
   }
 
+  const switchToNewAccount = (state: boolean) =>  {
+    setNewAccount(state);
+    setValidityPrompt("");
+  }
+
   const onUpdateTokenInput = (e: any) =>  {
     setTokenInput(e.target.value);
   }
@@ -52,25 +102,23 @@ const Login = () => {
   }
 
   return (
-    <div className='flex bg-slate-900 text-stone-50 w-screen h-screen text-center items-center justify-center space-x-10'>
-      <Card className='max-w-60 min-h-60'>
-        <CardHeader>
-          <CardTitle>Login using your token</CardTitle>
-        </CardHeader>
-        <CardContent className='m-5'>
-          <Input placeholder='insert token here' className='rounded-[5px]' onChange={onUpdateTokenInput} />
-          <Button className='m-4 bg-slate-950 rounded-xl' type="submit" onClick={submit}>Login</Button>
-        </CardContent>
-      </Card>
-      <Card className='max-w-60 min-h-60'>
-        <CardHeader>
-          <CardTitle>Create new Token</CardTitle>
-        </CardHeader>
-        <CardContent className='m-5'>
-          <Input placeholder='insert new Callsign' className='rounded-[5px]' onChange={onUpdateCallsignInput} />
-          <Button className='m-4 bg-slate-950 rounded-xl' type="submit" onClick={getNewToken}>Generate new token</Button>
-        </CardContent>
-      </Card>
+    <div className='w-screen h-screen flex flex-col text-center items-center space-y-32 bg-gray-950 text-offwhite'>
+      <h1 className='text-3xl mt-4 font-semibold '>Galaxy Trading</h1>
+      
+        {newAccount ? 
+          <NewAccountCard 
+            onUpdateCallsignInput={onUpdateCallsignInput}
+            cancel={switchToNewAccount} 
+            getNewToken={getNewToken}
+          />
+        :
+          <LoginCard 
+            onUpdateTokenInput={onUpdateTokenInput} 
+            validityPrompt={validityPrompt} 
+            submit={submit} 
+            setNewAccount={switchToNewAccount}
+          />
+        }
     </div>
   )
 }

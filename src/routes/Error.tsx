@@ -2,7 +2,7 @@ import React from 'react'
 
 const Error = () => {
   return (
-    <div className='align-center'>
+    <div className='items-center align-center'>
       OOPS! page error
     </div>
   )
