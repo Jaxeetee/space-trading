@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 import { TOKEN } from '@/lib/constants';
-import { generateToken } from '@/spacetraders-api/my/register'
 import { getAgent } from '@/spacetraders-api/my/agent';
+import { generateToken } from '@/spacetraders-api/my/register';
+
 
 const LoginCard = (props: any) => {
   const newAccount = () =>  {
@@ -47,8 +48,8 @@ const NewAccountCard = (props: any) => {
         <Input placeholder='Enter a new Callsign' onChange={props.onUpdateCallsignInput}  className='rounded-[5px]' />
       </CardContent>
       <CardFooter className='absolute w-full bottom-6'>
-        <Button type="submit" onClick={cancel}  className='flex w-full hover:bg-offwhite hover:ring-2 hover:ring-black hover:ring-inset bg-gray-950 hover:text-black text-offwhite rounded-[5px]' >Cancel</Button>
-        <Button type="submit" onClick={props.getNewToken} className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-black hover:ring-inset bg-offwhite text-black rounded-[5px]' >Create</Button>
+        <Button type="submit" onClick={cancel}  className='flex w-full hover:bg-offwhite bg-neutral-950 hover:text-black text-offwhite rounded-[5px]' >Cancel</Button>
+        <Button type="submit" onClick={props.getNewToken} className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-neutral-950 hover:ring-inset bg-offwhite text-black rounded-[5px]' >Create</Button>
       </CardFooter>
     </Card>
   )
@@ -71,10 +72,10 @@ const Login = () => {
 
     if (result === undefined)
     {
-      //error prompt
-      console.log("error")
       setValidityPrompt("Invalid Token!")
-    } else {
+    } 
+    else 
+    {
       localStorage.setItem(TOKEN, tokenInput);
       navigateToDashboard();
     }     
@@ -86,6 +87,7 @@ const Login = () => {
     if (result === undefined)
     {
       setValidityPrompt("Callsign already exists!");
+      //TODO: specify the error of the input (i.e. if callsign already exists or, character exceeds limit or has invalid characters)
     }
     else 
     {
@@ -108,8 +110,8 @@ const Login = () => {
   }
 
   return (
-    <div className='w-screen h-screen flex flex-col text-center items-center space-y-32 bg-gray-950 text-offwhite'>
-      <h1 className='text-3xl mt-4 font-semibold '>Galaxy Trading</h1>
+    <div className='w-screen h-screen p-4 flex flex-col text-center items-center space-y-32 bg-stone-950 text-offwhite'>
+      <h1 className='text-3xl font-semibold '>Galaxy Trading</h1>
       
         {newAccount ? 
           <NewAccountCard 
@@ -126,6 +128,7 @@ const Login = () => {
             setNewAccount={switchToNewAccount}
           />
         }
+        
     </div>
   )
 }

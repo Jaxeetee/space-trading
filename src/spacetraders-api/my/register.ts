@@ -1,7 +1,4 @@
-import axios, { AxiosError } from "axios";
-import API from "../api";
-import { AccountData, MY_TOKEN } from "./types";
-import { error } from "console";
+import API from "@/spacetraders-api/api";
 
 type errorType = {
   message: string,
@@ -32,7 +29,7 @@ export async function generateToken(callsign: string): Promise<string | undefine
       message: error.response.data.error.message,
       code: error.response.data.error.code
     };
-    
+    //TODO I think its a bad design to return undefined. 
     return undefined;
   }
 }

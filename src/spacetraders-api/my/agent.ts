@@ -1,9 +1,9 @@
 import axios from "axios";
 import API from "../api";
-import { AccountData } from "@/interface/types";
+import { AccountData } from "@/interface/account";
 
 
-export async function getAgent(token: string | undefined): Promise<AccountData | undefined> // TODO will change promise type
+export async function getAgent(token: string | null): Promise<AccountData | undefined>
 {
   const options = {
     headers: {
@@ -18,6 +18,5 @@ export async function getAgent(token: string | undefined): Promise<AccountData |
   }
   catch (error) {
     console.error(error);
-    return undefined;
   }
 } 

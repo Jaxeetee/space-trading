@@ -1,31 +1,26 @@
-import { useEffect, useState } from 'react';
-
-import { getAgent } from '../spacetraders-api/my/agent';
-import { AccountData } from '../spacetraders-api/my/types';
+import AgentInfo from '@/components/dashboard/AgentInfo';
 import { TOKEN } from '@/lib/constants';
+import { getMyContracts } from '@/spacetraders-api/my/contracts';
 
-function Dashboard() {
-  const [agentDetails, setAgentDetails] = useState<AccountData | undefined>();
-  const accountToken = localStorage.getItem(TOKEN)?.toString();
+import { Card } from '@/components/ui/card';
+import Contracts from '@/components/dashboard/Contracts';
 
-  useEffect(() => {
-    const fetchData = async () =>  {
-      const response = await getAgent(accountToken); 
-      setAgentDetails(response);
-    };
-    
-    fetchData();   
-  }, [])
+
+const Dashboard = () =>  {
+
+  const pToken = localStorage.getItem(TOKEN);
+
+  const myContracts = async () =>  {
+    const result = await getMyContracts(pToken);
+
+  }
   return (
-    <div className='w-screen h-screen bg-'>
-      <main>
-        <div className='w-full items-center'>
-          {agentDetails ? 
-            <div className='text-center'>{agentDetails.symbol} {agentDetails.startingFaction}</div> 
-            : <div> has no data</div>}
-        </div>
+    <>
+      <main className='w-screen h-screen p-4 bg-stone-950 text-offwhite'>
+        <AgentInfo />
+        <Contracts />
       </main>
-    </div>
+    </>
   );
 }
 

@@ -1,14 +1,5 @@
 export const MY_TOKEN: string = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiU1A0Q0VfTk9NQUQiLCJ2ZXJzaW9uIjoidjIuMi4wIiwicmVzZXRfZGF0ZSI6IjIwMjQtMDUtMTkiLCJpYXQiOjE3MTY0MzgwODMsInN1YiI6ImFnZW50LXRva2VuIn0.QOCDAd92cuzUXHhmMGW5YF8M5kO5_ZNDRGZdkz8UVai4jjIYu9hUW2WX6pVry9XEADScjyuMCZetjXuaSI_4urOUKSrJaZwu9quHf5_F0iJ79UAUyyoRi8Ol52EQz-6IbeLGVHcEH9r_y77RihQi-NEIu7f9MzMQ0__xKlHr0ceDe0cqFuRNGoGbU_5cIvXTxSWOnq3E8kKJkUSfsIVfVr9UnBcN4YiNkZ02FZZc1JYZErLwNtgJdzy_4YR5-TRNNMShI8v_X21iqlfd0UTEOMEtxpfNogrns-sjeDNCSD96j3XXvvGVlpFVpowNLYbl74RMiIAoLN8GOcsn91aDfw";
 
-export interface AccountData {
-  accountID: string;
-  credits: number;
-  headquarters: string;
-  shipCount: number;
-  startingFaction: string;
-  symbol: string;
-}
-
 export interface Account {
   token: string;
   agent: Agent;
@@ -26,14 +17,14 @@ export interface Agent {
   shipCount: number;
 }
 
-export interface Terms {
-  deadline: string;
-  payment: Payment;
-}
-
 export interface Payment {
   onAccepted: number;
   onFulfilled: number;
+}
+
+export interface Terms {
+  deadline: string;
+  payment: Payment;
 }
 
 export interface Deliverables {
@@ -48,7 +39,7 @@ export interface Contract {
   factionSymbol: string;
   type: string;
   terms: Terms;
-  deliver: Deliverables[];
+  deliver: Array<Deliverables>;
   accepted: boolean;
   fulfilled: boolean;
   expiration: string;
@@ -66,7 +57,7 @@ export interface Faction {
   name: string;
   description: string;
   headquarters: string;
-  traits: Trait[];
+  traits: Array<Trait>;
   isRecruiting: boolean;
 }
 
