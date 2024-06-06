@@ -1,4 +1,4 @@
-import { Waypoint } from "@/interface/waypoint";
+import { Waypoint } from "@/interface/system-waypoint";
 import axios from "axios";
 
 

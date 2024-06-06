@@ -17,7 +17,7 @@ import {
 import { Card } from '@/components/ui/card'
 import { Contract } from '@/interface/player'
 import useToken from '@/hooks/useToken'
-import { getMyContracts } from '@/spacetraders-api/my/contracts'
+import { fetchMyContracts } from '@/spacetraders-api/my/contracts'
 import { TOKEN } from '@/lib/constants'
 
 
@@ -26,7 +26,7 @@ const Contracts = () => {
   const userToken = localStorage.getItem(TOKEN);
 
   const fetchContracts = async () =>  {
-      const result = await getMyContracts(userToken);
+      const result = await fetchMyContracts(userToken);
 
       if (result)
       {
@@ -40,7 +40,13 @@ const Contracts = () => {
   },[])
 
   return (
-    <Card className='max-w-fit '>
+    <Card className='h-96'>
+      {
+        contractList.length <=  0 ? 
+        <div className='flex justify-center items-center h-full p-4 '>
+          <h1 className='text-center align-middle w-1/2 h-1/2 text-offwhite'>There are no contracts available</h1>
+        </div> 
+        :
         <Table className='min-h-96'>
           <TableHeader>
             <TableRow>
@@ -54,34 +60,27 @@ const Contracts = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {
-              contractList.length <=  0 ? 
-              <div className='absolute w-full h-full p-4'>
-                <h1 className='text-center text-offwhite'>There are no contracts available</h1>
-              </div> 
-              :
-              <TableRow>
-                {
-                  contractList.map((value) =>  
-                    <TableRow>
-                      <TableCell>{value?.factionSymbol}</TableCell>
-                      <TableCell>{value?.type}</TableCell>
-                      <TableCell>{value?.terms.deadline}</TableCell>
-                      <TableCell>{value?.terms.payment.onAccepted}</TableCell>
-                      <TableCell>{value?.terms.payment.onFulfilled}</TableCell>
-                      <TableCell>{value?.expiration}</TableCell>
-                      <TableCell>{value?.deadlineToAccept}</TableCell>
-                    </TableRow>
-                  )
-                }
-              </TableRow>
-            }
-
+            <TableRow>
+              {
+                contractList.map((value) =>  
+                  <TableRow>
+                    <TableCell>{value?.factionSymbol}</TableCell>
+                    <TableCell>{value?.type}</TableCell>
+                    <TableCell>{value?.terms.deadline}</TableCell>
+                    <TableCell>{value?.terms.payment.onAccepted}</TableCell>
+                    <TableCell>{value?.terms.payment.onFulfilled}</TableCell>
+                    <TableCell>{value?.expiration}</TableCell>
+                    <TableCell>{value?.deadlineToAccept}</TableCell>
+                  </TableRow>
+                )
+              }
+            </TableRow>
           </TableBody>
           <TableFooter>
 
           </TableFooter>
         </Table>
+      }
     </Card>
   )
 }

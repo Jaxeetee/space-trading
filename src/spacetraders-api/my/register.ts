@@ -1,16 +1,17 @@
-import API from "@/spacetraders-api/api";
+import { global as api } from "@/spacetraders-api/api";
 
 type errorType = {
   message: string,
   code: number
 }
  
+//TODO Make it so that the player can choose a faction based from all the factions provided
 export async function generateToken(callsign: string): Promise<string | undefined>
 {
 
   const data = {
       symbol: callsign,
-      faction: "COSMIC",
+      faction: "COSMIC", 
   };
 
   const headers = {
@@ -18,18 +19,13 @@ export async function generateToken(callsign: string): Promise<string | undefine
   }
 
   try {
-    const response = await API.post('/register', data, { headers })
-
+    const response = await api.post('/register', data, { headers })
     return response.data.data.token;
   } 
   catch (error: any) {
     console.error(error);
 
-    const errorType = {
-      message: error.response.data.error.message,
-      code: error.response.data.error.code
-    };
-    //TODO I think its a bad design to return undefined. 
+    //TODO I think its a bad design to return undefined. esp in catch block
     return undefined;
   }
 }

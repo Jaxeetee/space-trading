@@ -14,15 +14,16 @@ interface Chart {
 }
 
 export interface Waypoint {
-  systemSymbol: string;
   symbol: string;
   type: string;
+  systemSymbol: string;
   x: number;
   y: number;
-  orbitals?: Array<Symbol>;
+  orbitals: Array<Symbol>;
+  orbits?: string | undefined;
   traits?: Array<Traits>;
   modifiers?: Array<string>;
   chart: Chart;
-  faction?: Symbol;
+  faction: Symbol;
   isUnderConstruction: boolean;
 }

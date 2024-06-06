@@ -1,24 +1,30 @@
 import AgentInfo from '@/components/dashboard/AgentInfo';
-import { TOKEN } from '@/lib/constants';
-import { getMyContracts } from '@/spacetraders-api/my/contracts';
 
-import { Card } from '@/components/ui/card';
 import Contracts from '@/components/dashboard/Contracts';
+import { Card } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 
 const Dashboard = () =>  {
 
-  const pToken = localStorage.getItem(TOKEN);
-
-  const myContracts = async () =>  {
-    const result = await getMyContracts(pToken);
-
-  }
   return (
     <>
       <main className='w-screen h-screen p-4 bg-stone-950 text-offwhite'>
         <AgentInfo />
-        <Contracts />
+        <Tabs defaultValue='system'>
+          <TabsList>
+            <TabsTrigger value='contracts'>Contracts</TabsTrigger>
+            <TabsTrigger value='system'>Systems</TabsTrigger>
+          </TabsList>
+          <TabsContent value='contracts'>
+            <Contracts />
+          </TabsContent>
+          <TabsContent value='system'>
+            <Card className='p-4'>
+              System
+            </Card>
+          </TabsContent>
+        </Tabs>
       </main>
     </>
   );

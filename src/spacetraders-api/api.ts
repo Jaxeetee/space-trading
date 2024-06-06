@@ -1,3 +1,11 @@
 import axios from 'axios';
 
-export default axios.create({baseURL:"https://api.spacetraders.io/v2"})
+export const global = axios.create({
+  baseURL:"https://api.spacetraders.io/v2", 
+  headers: {
+    'Accept': 'application/json'
+  }})
+
+export const my = axios.create({
+  baseURL:"https://api.spacetraders.io/v2/my"
+})

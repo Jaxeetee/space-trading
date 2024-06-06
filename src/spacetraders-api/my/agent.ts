@@ -1,6 +1,5 @@
-import axios from "axios";
-import API from "../api";
 import { AccountData } from "@/interface/account";
+import { my as api } from "../api";
 
 
 export async function getAgent(token: string | null): Promise<AccountData | undefined>
@@ -13,7 +12,7 @@ export async function getAgent(token: string | null): Promise<AccountData | unde
   }
 
   try {
-    const response = await API.get('/my/agent', options);
+    const response = await api.get('/agent', options);
     return response.data.data;
   }
   catch (error) {
