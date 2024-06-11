@@ -1,4 +1,3 @@
-import axios from "axios";
 import { global as api } from '@/spacetraders-api/api';
 
 interface responseData {
@@ -14,15 +13,8 @@ interface pagination {
 
 export async function fetchSystems(): Promise<responseData | null>
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
-
   try {
-    const response = await api.get("/systems", options);
+    const response = await api.get("/systems");
     console.log(response);
     return response.data;
   }
@@ -34,14 +26,8 @@ export async function fetchSystems(): Promise<responseData | null>
 
 export async function fetchSystemStats(systemSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}`, options);
+    const response = await api.get(`/systems/${systemSymbol}`);
     console.log(response);
   }
   catch(err){
@@ -51,14 +37,8 @@ export async function fetchSystemStats(systemSymbol: string)
 
 export async function fetchWaypoints(systemSymbol: string)
 {
-    const options = {
-      headers: {
-        'Accept' : 'application/json'
-      }
-    }
-
     try {
-      const response = await api.get(`/systems/${systemSymbol}/waypoints`, options);
+      const response = await api.get(`/systems/${systemSymbol}/waypoints`);
       console.log(response);
     }
     catch(err)
@@ -69,14 +49,8 @@ export async function fetchWaypoints(systemSymbol: string)
 
 export async function fetchWaypoint(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}`, options);
+    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
     console.log(response);
   }
   catch(err)
@@ -87,14 +61,8 @@ export async function fetchWaypoint(systemSymbol: string, waypointSymbol: string
 
 export async function fetchMarket(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`, options);
+    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
     console.log(response);
   }
   catch(err)
@@ -105,14 +73,8 @@ export async function fetchMarket(systemSymbol: string, waypointSymbol: string)
 
 export async function fetchShipyard(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/shipyard`, options);
+    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/shipyard`);
     console.log(response);
   }
   catch(err)
@@ -123,14 +85,8 @@ export async function fetchShipyard(systemSymbol: string, waypointSymbol: string
 
 export async function fetchJumpGate(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/jump-gate`, options);
+    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/jump-gate`);
     console.log(response);
   }
   catch(err)
@@ -141,14 +97,8 @@ export async function fetchJumpGate(systemSymbol: string, waypointSymbol: string
 
 export async function fetchConstructionSite(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/construction`, options);
+    const response = await api.get(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/construction`);
     console.log(response);
   }
   catch(err)
@@ -159,14 +109,8 @@ export async function fetchConstructionSite(systemSymbol: string, waypointSymbol
 
 export async function supplyConstructionSite(systemSymbol: string, waypointSymbol: string)
 {
-  const options = {
-    headers: {
-      'Accept' : 'application/json'
-    }
-  }
-
   try {
-    const response = await api.post(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/construction/supply`, options);
+    const response = await api.post(`/systems/${systemSymbol}/waypoints/${waypointSymbol}/construction/supply`);
     console.log(response);
   }
   catch(err)

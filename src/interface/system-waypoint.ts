@@ -1,3 +1,20 @@
+import { Coordinate } from "./coordinate";
+
+export interface Waypoint {
+  symbol: string;
+  type: string;
+  systemSymbol: string;
+  x: Coordinate["x"];
+  y: Coordinate["y"];
+  orbitals: Array<Symbol>;
+  orbits?: string | undefined;
+  traits?: Array<Traits>;
+  modifiers?: Array<string>;
+  chart: Chart;
+  faction: Symbol;
+  isUnderConstruction: boolean;
+}
+
 interface Symbol {
   symbol: string;
 }
@@ -13,17 +30,5 @@ interface Chart {
   submittiedOn: string;
 }
 
-export interface Waypoint {
-  symbol: string;
-  type: string;
-  systemSymbol: string;
-  x: number;
-  y: number;
-  orbitals: Array<Symbol>;
-  orbits?: string | undefined;
-  traits?: Array<Traits>;
-  modifiers?: Array<string>;
-  chart: Chart;
-  faction: Symbol;
-  isUnderConstruction: boolean;
-}
+
+
