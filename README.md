@@ -11,4 +11,5 @@ Project that is based on the [spacetraders v2](https://spacetraders.io/) API. Th
 - [Vite](https://vitejs.dev/)
 - [React Router](https://reactrouter.com/en/main)
 - [Axios](https://axios-http.com/)
+- [Shadcn](https://ui.shadcn.com/)
 
