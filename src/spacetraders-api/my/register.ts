@@ -1,4 +1,5 @@
 import { global as api } from "@/spacetraders-api/api";
+import { FactionSymbols } from "@/interface/faction";
 
 type errorType = {
   message: string,
@@ -6,12 +7,12 @@ type errorType = {
 }
  
 //TODO Make it so that the player can choose a faction based from all the factions provided
-export async function generateToken(callsign: string): Promise<string | undefined>
+export async function generateToken(callsign: string, faction?: FactionSymbols): Promise<string | undefined>
 {
 
   const data = {
       symbol: callsign,
-      faction: "COSMIC", 
+      faction: faction ? faction : "COSMIC", 
   };
 
   const headers = {

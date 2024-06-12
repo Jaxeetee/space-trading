@@ -1,5 +1,5 @@
 import { my as api } from '@/spacetraders-api/api';
-import { Contract } from '@/interface/player';
+import { Contract } from '@/interface/contract';
 
 export async function fetchMyContracts(token: string | null): Promise<Array<Contract> | undefined>
 {
