@@ -1,11 +1,12 @@
-import { global } from "@/spacetraders-api/api"
+import { Faction } from "@/interface/faction";
+import { global as api } from "../api";
 
-export async function getFactions() 
+export async function fetchFactions(): Promise<Faction | undefined>
 {
 
   try {
-    const response = await global.get('/factions');
-    console.log(response);
+    const response = await api.get('https://api.spacetraders.io/v2/factions');
+    return response.data.data;
   }
   catch (err) {
     console.error(err);
