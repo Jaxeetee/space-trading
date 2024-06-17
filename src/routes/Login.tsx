@@ -1,65 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 
+import LoginCard from '@/components/login/LoginCard';
+import NewAccountCard from '@/components/login/NewAccountCard';
 import { TOKEN } from '@/lib/constants';
 import { getAgent } from '@/spacetraders-api/my/agent';
 import { generateToken } from '@/spacetraders-api/my/register';
+import { FactionSymbols } from '@/interface/faction';
 
-
-const LoginCard = (props: any) => {
-  const newAccount = () =>  {
-    props.setNewAccount(true);
-  }
-
-  return (
-    <Card className='relative size-96'>
-      <CardHeader className='my-4'>
-      <CardTitle className='text-left mt-4 text-2xl'>Sign In</CardTitle>
-      </CardHeader>
-      <CardContent className=' m-4'>
-        <p className='ml-1 text-red-500 text-left text-[.75rem]'>{props.validityPrompt}</p>
-        <Input placeholder='Enter your Token' onChange={props.onUpdateTokenInput}  className='rounded-[5px] my-1' />
-        <p className='ml-1 text-left font-light text-[.75rem]'> Dont have one?
-          <a onClick={newAccount} className='hover:text-amber-100 text-[.75rem] hover:cursor-pointer font-mono'> Create a new account</a>
-        </p>
-      </CardContent>
-      <CardFooter className='absolute bottom-6 w-full'>
-        <Button className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-black hover:ring-inset bg-offwhite text-black rounded-[5px]' type="submit" onClick={props.submit}>Sign in</Button>
-      </CardFooter>
-    </Card>
-  )
-}
-
-const NewAccountCard = (props: any) => {
-  const cancel = () =>  {
-    props.cancel(false);
-  }
-  return (
-    <Card className='relative size-96'>
-      <CardHeader className='my-4 justify-'>
-        <CardTitle className='text-left pt-4 text-2xl'>New Account</CardTitle>
-      </CardHeader>
-      <CardContent className='m-4'>
-        <p className='ml-1 text-red-500 text-left text-[.75rem]'>{props.validityPrompt}</p>
-        <Input placeholder='Enter a new Callsign' onChange={props.onUpdateCallsignInput}  className='rounded-[5px]' />
-      </CardContent>
-      <CardFooter className='absolute w-full bottom-6'>
-        <Button type="submit" onClick={cancel}  className='flex w-full hover:bg-offwhite bg-neutral-950 hover:text-black text-offwhite rounded-[5px]' >Cancel</Button>
-        <Button type="submit" onClick={props.getNewToken} className='flex w-full hover:bg-amber-100 hover:ring-2 hover:ring-neutral-950 hover:ring-inset bg-offwhite text-black rounded-[5px]' >Create</Button>
-      </CardFooter>
-    </Card>
-  )
-}
 
 const Login = () => {
-  const [tokenInput, setTokenInput] = useState<string>("");
-  const [newCallsign, setNewCallsign] = useState<string>("");
-  const [validityPrompt, setValidityPrompt] = useState<string>("");
+  const [tokenInput, setTokenInput] = useState<string>('');
+  const [validityPrompt, setValidityPrompt] = useState<string>('');
   const [newAccount, setNewAccount] = useState<boolean>(false);
+  const [newCallsign, setNewCallsign] = useState<string>('');
+  const [newFaction, setNewFaction] = useState<string>('');
   const navigate = useNavigate();
 
   function navigateToDashboard()
@@ -72,7 +28,7 @@ const Login = () => {
 
     if (result === undefined)
     {
-      setValidityPrompt("Invalid Token!")
+      setValidityPrompt('Invalid Token!')
     } 
     else 
     {
@@ -82,11 +38,12 @@ const Login = () => {
   }
 
   const getNewToken = async () =>  {
-    const result = await generateToken(newCallsign);
+    console.log("getNewToken called");
+    const result = await generateToken(newCallsign, newFaction as FactionSymbols);
 
     if (result === undefined)
     {
-      setValidityPrompt("Callsign already exists!");
+      setValidityPrompt('Callsign already exists!');
       //TODO: specify the error of the input (i.e. if callsign already exists or, character exceeds limit or has invalid characters)
     }
     else 
@@ -98,15 +55,19 @@ const Login = () => {
 
   const switchToNewAccount = (state: boolean) =>  {
     setNewAccount(state);
-    setValidityPrompt("");
+    setValidityPrompt('');
   }
 
   const onUpdateTokenInput = (e: any) =>  {
     setTokenInput(e.target.value);
   }
 
-  const onUpdateCallsignInput = (e: any) =>  {
-    setNewCallsign(e.target.value);
+  const onUpdateFaction = (chosenFaction: string) =>  {
+    setNewFaction(chosenFaction);
+  }
+
+  const onUpdateCallsignInput = (callsignInput: string) =>  {
+    setNewCallsign(callsignInput);
   }
 
   return (
@@ -116,6 +77,7 @@ const Login = () => {
         {newAccount ? 
           <NewAccountCard 
             onUpdateCallsignInput={onUpdateCallsignInput}
+            onUpdateFaction={onUpdateFaction}
             cancel={switchToNewAccount} 
             getNewToken={getNewToken}
             validityPrompt={validityPrompt}

@@ -1,7 +1,7 @@
 import { Faction } from "@/interface/faction";
 import { global as api } from "../api";
 
-export async function fetchFactions(): Promise<Faction | undefined>
+export async function fetchFactions(): Promise<Array<Faction> | undefined>
 {
 
   try {
