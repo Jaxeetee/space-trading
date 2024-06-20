@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Card } from '@/components/ui/card'
-import { Contract } from '@/interface/player'
+import { Contract } from '@/interface/contract'
 import useToken from '@/hooks/useToken'
 import { fetchMyContracts } from '@/spacetraders-api/my/contracts'
 import { TOKEN } from '@/lib/constants'
@@ -60,21 +60,19 @@ const Contracts = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
               {
                 contractList.map((value) =>  
-                  <TableRow>
+                  <TableRow key={value?.id}>
                     <TableCell>{value?.factionSymbol}</TableCell>
                     <TableCell>{value?.type}</TableCell>
-                    <TableCell>{value?.terms.deadline}</TableCell>
+                    <TableCell>{value?.terms.deadline.toString()}</TableCell>
                     <TableCell>{value?.terms.payment.onAccepted}</TableCell>
                     <TableCell>{value?.terms.payment.onFulfilled}</TableCell>
-                    <TableCell>{value?.expiration}</TableCell>
-                    <TableCell>{value?.deadlineToAccept}</TableCell>
+                    <TableCell>{value?.expiration.toString()}</TableCell>
+                    <TableCell>{value?.deadlineToAccept.toString()}</TableCell>
                   </TableRow>
                 )
               }
-            </TableRow>
           </TableBody>
           <TableFooter>
 
