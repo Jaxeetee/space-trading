@@ -32,7 +32,6 @@ const RegistrationForm = (props: any) =>  {
   })
 
   const onSubmit = (values: z.infer<typeof formSchema>) =>  {
-    props.onContentChange(true);
     props.onSubmit({symbol: values.symbol, faction: values.faction});
   }
 
@@ -43,17 +42,19 @@ const RegistrationForm = (props: any) =>  {
           control={form.control} 
           name="symbol" 
           render={({ field }) =>  (
-            <FormItem className='py-4'>
+            <FormItem className='pt-4 pb-1'>
               <FormLabel className='flex'>Symbol</FormLabel>
               <FormControl>
-                <Input 
+                <Input
+                  onChange={field.onChange}
                   className='rounded-[5px]'
-                  {...field}
+                  
                 />
               </FormControl>
             </FormItem>
           )}
         />
+        <p className='text-xs text-red-600'>{props.validityPrompt}</p>
         <FormField 
           control={form.control} 
           name="faction" 

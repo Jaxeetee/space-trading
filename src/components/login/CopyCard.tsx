@@ -10,7 +10,7 @@ const CopyCard = (props: any) =>  {
 
   const onCopyClipboard = () =>  {
     setContinueButtonState(true);
-    navigator.clipboard.writeText("test")
+    navigator.clipboard.writeText(props.token)
   }
 
   const onContinue = () =>  {
@@ -30,7 +30,6 @@ const CopyCard = (props: any) =>  {
       <Button
         onClick={onCopyClipboard}
         variant='outline'
-        
         className='m-4 hover:bg-amber-100 hover:text-black rounded-[5px]'
       >
         TOKEN_

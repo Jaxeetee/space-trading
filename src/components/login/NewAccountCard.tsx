@@ -14,26 +14,27 @@ import { TOKEN } from '@/lib/constants';
 
 const NewAccountCard = (props: any) => {
   const [ copyCardState , setCopyCardState ] = useState<boolean>(false);
-
-  const onContentChange = (state: boolean) =>  {
-
-    setCopyCardState(state);
-  }
-
-  const onChangeToCopyCard = () =>  {
-    setCopyCardState(true);
-  }
+  const [ newToken, setNewToken ] = useState<string>(''); 
+  const [ validityPrompt, setValidityPrompt] = useState<string>('');
 
   const cancel = () =>  {
     props.cancel(false);
   }
 
   const getNewToken = (newAgent: {symbol: string, faction: FactionSymbols}) =>  {
-
     generateToken(newAgent.symbol, newAgent.faction)
       .then(data =>  {
-        localStorage.setItem(TOKEN, data as string)
-        //navigateToDashboard();
+        if (typeof data === 'string')
+        {
+          localStorage.setItem(TOKEN, data as string);
+          setNewToken(data as string);
+          setCopyCardState(true);
+        }
+        else 
+        {
+          console.log(data.message);
+          setValidityPrompt(data.message);
+        }
       })
   }
 
@@ -51,19 +52,19 @@ const NewAccountCard = (props: any) => {
         </CardTitle>
       </CardHeader>
       <CardContent className='m-4'>
-      <CopyCard 
-        navigateToDashboard = {props.navigateToDashboard}
-      />
-        {/* {
+        {
           copyCardState ? 
-          <CopyCard />
+          <CopyCard 
+            token={newToken}
+            navigateToDashboard = {props.navigateToDashboard}
+          />
           :
           <RegistrationForm 
-            onSubmit={props.onSubmit}
+            validityPrompt={validityPrompt}
+            onSubmit={getNewToken}
             onCancel={cancel}
-            onContentChange={onChangeToCopyCard}
         />
-        } */}
+        }
       </CardContent>
     </Card>
   )
