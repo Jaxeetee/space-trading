@@ -1,36 +1,25 @@
 import { useEffect, useState } from 'react';
 
-import { Faction } from '@/interface/faction';
-import { fetchFactions } from '@/spacetraders-api/faction/faction';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover';
-import { 
-  Command, 
-  CommandGroup, 
-  CommandList,
-  CommandItem 
-} from '../ui/command';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Button } from '../ui/button';
+} from "@/components/ui/select";
+import { Faction } from '@/interface/faction';
+import { fetchFactions } from '@/spacetraders-api/faction/faction';
 
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 
 const FactionList = ({ field }: any) =>  {
   const [open, setOpen] = useState<boolean>(false);
   const [factionList, setFactionList] = useState<Array<Faction>>();
 
-  const getFactions = async () =>  {
+  const getFactions = () =>  {
     fetchFactions().then(
-      data =>  setFactionList(data)
+      data =>  {
+        setFactionList(data?.filter(faction =>  faction.isRecruiting))
+      }
     )
   }
 
@@ -39,7 +28,7 @@ const FactionList = ({ field }: any) =>  {
   },[])
 
   return (
-    <Select onValueChange={field.onChange}>
+    <Select onValueChange={field.onChange} >
       <SelectTrigger
           className='min-w-full justify-between rounded-[5px] mt-4'
         >

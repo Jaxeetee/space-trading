@@ -1,8 +1,9 @@
 import { AccountData } from "@/interface/account";
 import { my as api } from "../api";
+import { ErrorType } from "@/interface/error";
 
 
-export async function getAgent(token: string | null): Promise<AccountData | undefined>
+export async function getAgent(token: string | null): Promise<AccountData | ErrorType>
 {
   const options = {
     headers: {
@@ -13,9 +14,9 @@ export async function getAgent(token: string | null): Promise<AccountData | unde
 
   try {
     const response = await api.get('/agent', options);
-    return response.data.data;
+    return response.data.data as AccountData;
   }
-  catch (error) {
-    console.error(error);
+  catch (error: any) {
+    return error.response.data.error as ErrorType
   }
 } 

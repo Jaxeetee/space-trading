@@ -1,53 +1,44 @@
 "use client"
 
-import React, { useState } from 'react'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from 'zod';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
+  FormLabel
 } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import FactionList from './FactionList';
-
+import { FactionSymbols } from '@/interface/faction';
 
 const RegistrationForm = (props: any) =>  {
-  const [faction, setFaction] = useState<string>("");
 
   const formSchema = z.object({
     symbol: z.string().min(3).max(14),
-    faction: z.string()
+    faction: z.nativeEnum(FactionSymbols)
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      symbol: "",
-      faction: "COSMIC"
+      symbol: undefined,
+      faction: undefined
     }
   })
 
-  const onFactionSelect = (selectedItem: string) =>  {
-    setFaction(selectedItem)
-  }
-
-  const submitHandler = (values: z.infer<typeof formSchema>) =>  {
-    props.onUpdateCallsignInput(values.symbol);
-    props.onUpdateFactionSelect(values.faction);
-    props.onSubmit();
+  const onSubmit = (values: z.infer<typeof formSchema>) =>  {
+    props.onContentChange(true);
+    props.onSubmit({symbol: values.symbol, faction: values.faction});
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitHandler)}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField 
           control={form.control} 
           name="symbol" 

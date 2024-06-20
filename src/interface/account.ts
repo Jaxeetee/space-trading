@@ -1,5 +1,5 @@
 export interface AccountData {
-  accountID: string;
+  accountId: string;
   credits: number;
   headquarters: string;
   shipCount: number;
