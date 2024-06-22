@@ -1,24 +1,29 @@
 import React, {useEffect, useState} from 'react'
 
-import { TOKEN } from '@/lib/constants';
-import { AccountData } from '@/interface/account';
-import { getAgent } from '@/spacetraders-api/my/agent';
-import { Card, CardContent } from '../ui/card';
-import useToken from '@/hooks/useToken';
+import { TOKEN } from '@/lib/constants' 
+import { AccountData } from '@/interface/account' 
+import { getAgent } from '@/spacetraders-api/my/agent' 
+import { Card, CardContent } from '../ui/card' 
+import useToken from '@/hooks/useToken' 
+import { isAccountDataType } from '@/utils/typeChecker' 
 
 const AgentInfo = () =>  {
-  const [agentDetails, setAgentDetails] = useState<AccountData>();
-  const userToken = useToken();
+  const [agentDetails, setAgentDetails] = useState<AccountData>() 
+  const userToken = useToken() 
 
-  const fetchData = async () =>  {
-    const result = await getAgent(userToken); 
-    console.log(result);
-    setAgentDetails(result);
-  };
+  const fetchData =  () =>  {
+    getAgent(userToken)
+      .then(data =>  {
+        if(isAccountDataType(data))
+        {
+          setAgentDetails(data) 
+        }
+      })
+  } 
 
   useEffect(() => {
     
-    fetchData();   
+    fetchData()    
   }, [])
   return (
     <Card className='mb-4 max-w-fit'>

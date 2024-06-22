@@ -14,6 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+
 import { Card } from '@/components/ui/card'
 import { Contract } from '@/interface/contract'
 import useToken from '@/hooks/useToken'
@@ -25,17 +27,17 @@ const Contracts = () => {
   const [contractList, setContractList] = useState<Array<Contract | undefined>>([]);
   const userToken = localStorage.getItem(TOKEN);
 
-  const fetchContracts = async () =>  {
-      const result = await fetchMyContracts(userToken);
-
-      if (result)
-      {
-        setContractList(result);
-      }
+  const fetchContracts = () =>  {
+    fetchMyContracts(userToken)
+      .then(data =>  {
+        if (data)
+        {
+          setContractList(data);
+        }
+      });
   }
 
   useEffect(() =>  {
-
     fetchContracts();
   },[])
 
@@ -55,20 +57,18 @@ const Contracts = () => {
               <TableCell>Deadline</TableCell>
               <TableCell>On Accepted</TableCell>
               <TableCell>On Fulfilled</TableCell>
-              <TableCell>Expiration</TableCell>
               <TableCell>Deadline To Accept</TableCell>
             </TableRow>
           </TableHeader>
           <TableBody>
               {
-                contractList.map((value) =>  
-                  <TableRow key={value?.id}>
+                contractList.map((value, index) =>  
+                  <TableRow key={index}>
                     <TableCell>{value?.factionSymbol}</TableCell>
                     <TableCell>{value?.type}</TableCell>
                     <TableCell>{value?.terms.deadline.toString()}</TableCell>
                     <TableCell>{value?.terms.payment.onAccepted}</TableCell>
                     <TableCell>{value?.terms.payment.onFulfilled}</TableCell>
-                    <TableCell>{value?.expiration.toString()}</TableCell>
                     <TableCell>{value?.deadlineToAccept.toString()}</TableCell>
                   </TableRow>
                 )
