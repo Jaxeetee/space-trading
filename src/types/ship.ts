@@ -8,7 +8,7 @@ const FlightMode = {
   STEALTH: 'STEALTH',
   CRUISE: 'CRUISE',
   BURN: 'BURN'
-} as const;
+} as const
 
 const Status = {
   IN_TRANSIT: 'IN_TRANSIT,',
@@ -127,7 +127,7 @@ const DepositSymbols = {
   DIAMONDS: "DIAMONDS",
   URANITE_ORE: "URANITE_ORE",
   MERITIUM_ORE: "MERITIUM_ORE"
-}
+} as const
 
 const Items = {
   PRECIOUS_STONES: "PRECIOUS_STONES",
