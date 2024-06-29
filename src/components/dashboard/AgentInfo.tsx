@@ -27,11 +27,11 @@ const AgentInfo = () =>  {
     fetchData()    
   }, [])
   return (
-    <Card className="px-4 py-1 mb-4 max-w-full">
-      <CardContent className="flex flex-row justify-between max-w-full p-2">
+    <div className="px-0 py-1 mb-2 md:flex md:flex-col md:w-screen 2xl:w-4/6">
+      <CardContent className="relative md:flex md:flex-row justify-between max-w-full p-2">
         <div className="flex flex-col min-w-fit w-full">
-          <h1 className="text-3xl">WELCOME</h1>
-          <h1 className="text-lg text-yellow-200"><span className="font-semibold text-amber-500">[{agentDetails?.startingFaction}]</span> {agentDetails?.symbol}</h1>
+          <h1 className="text-xl text-stone-600 font-medium">WELCOME</h1>
+          <h1 className="text-2xl text-yellow-200"><span className="font-semibold text-amber-500">[{agentDetails?.startingFaction}]</span> {agentDetails?.symbol}</h1>
           <h1 className="text-sm">HQ Location: <span className="text-md text-yellow-200">
               {agentDetails?.headquarters}
             </span>
@@ -42,7 +42,7 @@ const AgentInfo = () =>  {
           <h1 className="text-md text-center text-yellow-200">{agentDetails?.credits}</h1>
         </div>
       </CardContent>
-    </Card>
+    </div>
   )
 }
 

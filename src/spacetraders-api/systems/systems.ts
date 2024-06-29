@@ -1,9 +1,6 @@
+import { ErrorType } from '@/interface/error'
+import { System } from '@/interface/system-waypoint'
 import { global as api } from '@/spacetraders-api/api' 
-
-interface responseData {
-  data: Array<any> 
-  meta: pagination 
-}
 
 interface pagination {
   total: number 
@@ -11,26 +8,31 @@ interface pagination {
   limit: number 
 }
 
-export async function fetchSystems(): Promise<responseData | null>
+interface systemArr {
+  data: Array<System>,
+  meta: pagination
+}
+
+export async function listSystems(): Promise<systemArr   | ErrorType>
 {
   try {
     const response = await api.get("/systems")  
-    return response.data 
+    return response.data as systemArr
   }
-  catch (err) {
+  catch (err: any) {
     console.error(`failed to fetch data: ${err}`) 
-    return null 
+    return err.response.data.error as ErrorType 
   }
 }
 
-export async function fetchSystemStats(systemSymbol: string)
+export async function getSystem(systemSymbol: string): Promise<{data: System[], meta: pagination} | ErrorType>
 {
   try {
     const response = await api.get(`/systems/${systemSymbol}`) 
-    console.log(response) 
+    return response.data as {data: System[], meta: pagination}
   }
-  catch(err){
-    console.error(err) 
+  catch(err: any){
+    return err.response.data.error as ErrorType
   }
 }
 

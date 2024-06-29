@@ -1,6 +1,7 @@
 import { AccountData } from "@/interface/account";
 import { ErrorType } from "@/interface/error";
 import { Account } from "@/interface/player";
+import { System, Waypoint } from "@/interface/system-waypoint";
 
 export function isAccountDataType(data: AccountData | ErrorType): data is AccountData {
   return (
@@ -22,5 +23,20 @@ export function isAccountType(data: Account | ErrorType): data is Account {
     'contract' in data && typeof data.contract === 'object' &&
     'faction' in data && typeof data.faction === 'object' &&
     'ship' in data && typeof data.ship === 'object'
+  )
+}
+
+interface pagination {
+  total: number 
+  page: number 
+  limit: number 
+}
+
+export function isSystemPagination(data: {data: Array<System>, meta: pagination} | ErrorType): data is {data: Array<System>, meta: pagination}
+{
+  return (
+    typeof data === 'object' && data !== null &&
+    'data' in data && data.data instanceof Array &&
+    'meta' in data && typeof data.meta === 'object'
   )
 }
